@@ -16,11 +16,6 @@ const unordered_set<string> PARTIAL_COLORING({
         "COLUMN_PARTIAL_DISTANCE_TWO",
         "ROW_PARTIAL_DISTANCE_TWO"});
 
-
-extern "C" void hello() {
-    std::cout << "Hello" << std::endl;
-}
-
 void print_output(GraphColoringInterface *g, int verbose) {
     if (verbose) {
         double t1 = g->GetVertexOrderingTime();

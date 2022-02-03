@@ -22,7 +22,6 @@
 
 using namespace ColPack;
 
-extern "C" void hello();
 extern "C" int build_coloring(void** ref, int* len, const char* _filename, const char* _method, const char* _order, int verbose);
 extern "C" void get_colors(void* ref, int* _coloring, char* _method);
 #endif

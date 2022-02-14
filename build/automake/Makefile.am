@@ -84,6 +84,7 @@ libColPack_la_SOURCES = \
 			../../../src/Utilities/StringTokenizer.cpp \
 			../../../src/Utilities/extra.cpp \
 			../../../src/Utilities/stat.cpp \
+			../../../src/Utilities/cinterface.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.cpp \

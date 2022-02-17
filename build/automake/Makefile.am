@@ -24,7 +24,9 @@ endif
 LDADD = libColPack.la
 AM_DEFAULT_SOURCE_EXT = .cpp
 
+if ENABLE_OPENMP
 noinst_PROGRAMS = ColPack
+endif
 lib_LTLIBRARIES = libColPack.la
 pkginclude_HEADERS = \
 			../../../src/Utilities/CoutLock.h \
@@ -39,9 +41,6 @@ pkginclude_HEADERS = \
 			../../../src/Utilities/StringTokenizer.h \
 			../../../src/Utilities/extra.h \
 			../../../src/Utilities/stat.h  \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.h \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.h \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloringInterface.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphVertexCover.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.h \
@@ -60,11 +59,16 @@ pkginclude_HEADERS = \
 			../../../inc/Definitions.h \
 			../../../inc/ColPackHeaders.h
 
+if ENABLE_OPENMP
 pkginclude_HEADERS += \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.h \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.h \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.h \
 			../../../src/SMPGC/SMPGC.h \
 			../../../src/SMPGC/SMPGCGraph.h \
 			../../../src/SMPGC/SMPGCOrdering.h \
 			../../../src/SMPGC/SMPGCColoring.h
+endif
 
 #pkginclude_HEADERS +=   ../../../src/PartialD2SMPGC/PD2SMPGC.h \
 #			../../../src/PartialD2SMPGC/PD2SMPGCOrdering.h \
@@ -85,15 +89,6 @@ libColPack_la_SOURCES = \
 			../../../src/Utilities/extra.cpp \
 			../../../src/Utilities/stat.cpp \
 			../../../src/Utilities/cinterface.cpp \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.cpp \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.cpp \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphInputOutput.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloring.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphVertexCover.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphCore.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloringInterface.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.cpp \
 			../../../src/GeneralGraphColoring/GraphCore.cpp \
 			../../../src/GeneralGraphColoring/GraphColoringInterface.cpp \
 			../../../src/GeneralGraphColoring/GraphInputOutput.cpp \
@@ -104,6 +99,7 @@ libColPack_la_SOURCES = \
 			../../../src/Recovery/JacobianRecovery2D.cpp \
 			../../../src/Recovery/HessianRecovery.cpp
 
+if ENABLE_OPENMP
 libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/SMPGC/SMPGCColoringD1.cpp \
 			../../../src/SMPGC/SMPGCColoringD2.cpp \
@@ -111,6 +107,16 @@ libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/SMPGC/SMPGC.cpp \
 			../../../src/SMPGC/SMPGCGraph.cpp \
 			../../../src/SMPGC/SMPGCOrdering.cpp
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.cpp \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.cpp \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphInputOutput.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloring.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphVertexCover.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphCore.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloringInterface.cpp \
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.cpp
+endif
 
 #libColPack_la_SOURCES += ../../../src/PartialD2SMPGC/PD2SMPGCColoring.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCColoringDev.cpp \
@@ -118,6 +124,7 @@ libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCOrdering.cpp
 
 
+if ENABLE_OPENMP
 ColPack_SOURCES = \
 			../../../Examples/ColPackAll/Main.cpp
 
@@ -133,6 +140,7 @@ basic_examples_PROGRAMS = \
 			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Jacobian
 
 TESTS = ${basic_examples_PROGRAMS}
+endif
 
 if EXAMPLES
 ADIC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADIC

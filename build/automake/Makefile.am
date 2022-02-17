@@ -28,6 +28,7 @@ if ENABLE_OPENMP
 noinst_PROGRAMS = ColPack
 endif
 lib_LTLIBRARIES = libColPack.la
+libColPack_la_LDFLAGS = -no-undefined
 pkginclude_HEADERS = \
 			../../../src/Utilities/CoutLock.h \
 			../../../src/Utilities/command_line_parameter_processor.h  \
@@ -93,11 +94,7 @@ libColPack_la_SOURCES = \
 			../../../src/GeneralGraphColoring/GraphColoringInterface.cpp \
 			../../../src/GeneralGraphColoring/GraphInputOutput.cpp \
 			../../../src/GeneralGraphColoring/GraphOrdering.cpp \
-			../../../src/GeneralGraphColoring/GraphColoring.cpp \
-			../../../src/Recovery/JacobianRecovery1D.cpp \
-			../../../src/Recovery/RecoveryCore.cpp \
-			../../../src/Recovery/JacobianRecovery2D.cpp \
-			../../../src/Recovery/HessianRecovery.cpp
+			../../../src/GeneralGraphColoring/GraphColoring.cpp
 
 if ENABLE_OPENMP
 libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
@@ -115,7 +112,11 @@ libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphVertexCover.cpp \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphCore.cpp \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloringInterface.cpp \
-			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.cpp
+			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.cpp \
+			../../../src/Recovery/JacobianRecovery1D.cpp \
+			../../../src/Recovery/RecoveryCore.cpp \
+			../../../src/Recovery/JacobianRecovery2D.cpp \
+			../../../src/Recovery/HessianRecovery.cpp
 endif
 
 #libColPack_la_SOURCES += ../../../src/PartialD2SMPGC/PD2SMPGCColoring.cpp \

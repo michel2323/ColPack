@@ -84,10 +84,30 @@ extern "C" int build_coloring(void** ref, int* len, const char* _filename, const
     return 1;
 }
 
-extern "C" void get_colors(void* ref, int* _coloring, char* _method) {
+extern "C" int build_coloring_from_csr(void** ref, int* len, unsigned int** csr, int rowcount, const char* _method, const char* _order, int verbose) {
+    string method = string(_method);
+    string order = string(_order);
+    vector<int> coloring;
+    void *g;
+    if (GENERAL_COLORING.count(_method)) {
+        if(verbose) std::cout << "General Graph Coloring\n";
+        GraphColoringInterface *g = new GraphColoringInterface(SRC_MEM_ADOLC, csr, rowcount);
+        g->Coloring(order.c_str(), method.c_str());
+		g->GetVertexColors(coloring);
+        *len = (int)(coloring.size());
+        *ref = (void*) g;
+    }
+    else {
+        std::cerr << "ColPack: Invalid coloring method selected\n";
+        return 0;
+    }
+    return 1;
+}
+
+extern "C" void get_colors(void* ref, int* _coloring, char* _method, int verbose) {
     GraphColoringInterface *g = (GraphColoringInterface*) ref;
     vector<int> coloring;
-    print_output(g, 1);
+    print_output(g, verbose);
 	g->GetVertexColors(coloring);
     memcpy(_coloring, coloring.data(), (size_t) coloring.size()*sizeof(int));
 } 

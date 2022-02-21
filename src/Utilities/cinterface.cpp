@@ -75,3 +75,8 @@ extern "C" void get_colors(void* ref, int* _coloring, char* _method, int verbose
 	g->GetVertexColors(coloring);
     memcpy(_coloring, coloring.data(), (size_t) coloring.size()*sizeof(int));
 } 
+
+extern "C" void free_coloring(void** ref) {
+    GraphColoringInterface *g = (GraphColoringInterface*) *ref;
+    delete g;
+}

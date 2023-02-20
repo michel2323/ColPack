@@ -42,6 +42,9 @@ pkginclude_HEADERS = \
 			../../../src/Utilities/StringTokenizer.h \
 			../../../src/Utilities/extra.h \
 			../../../src/Utilities/stat.h  \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.h \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.h \
+			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphBicoloringInterface.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphVertexCover.h \
 			../../../src/BipartiteGraphBicoloring/BipartiteGraphOrdering.h \
@@ -62,9 +65,6 @@ pkginclude_HEADERS = \
 
 if ENABLE_OPENMP
 pkginclude_HEADERS += \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.h \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.h \
-			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.h \
 			../../../src/SMPGC/SMPGC.h \
 			../../../src/SMPGC/SMPGCGraph.h \
 			../../../src/SMPGC/SMPGCOrdering.h \

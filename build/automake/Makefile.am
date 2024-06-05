@@ -103,7 +103,7 @@ libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/SMPGC/SMPGCColoringHybrid.cpp \
 			../../../src/SMPGC/SMPGC.cpp \
 			../../../src/SMPGC/SMPGCGraph.cpp \
-			../../../src/SMPGC/SMPGCOrdering.cpp
+			../../../src/SMPGC/SMPGCOrdering.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialOrdering.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoring.cpp \
 			../../../src/BipartiteGraphPartialColoring/BipartiteGraphPartialColoringInterface.cpp \

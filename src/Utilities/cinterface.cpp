@@ -7,16 +7,36 @@ const unordered_set<string> GENERAL_COLORING({
         "STAR", 
         "RESTRICTED_STAR", 
         "DISTANCE_TWO"});
+
 const unordered_set<string> BICOLORING({
         "IMPLICIT_COVERING__STAR_BICOLORING",
         "EXPLICIT_COVERING__STAR_BICOLORING",
         "EXPLICIT_COVERING__MODIFIED_STAR_BICOLORING",
         "IMPLICIT_COVERING__GREEDY_STAR_BICOLORING"});
+
 const unordered_set<string> PARTIAL_COLORING({
         "COLUMN_PARTIAL_DISTANCE_TWO",
         "ROW_PARTIAL_DISTANCE_TWO"});
 
 void print_output(GraphColoringInterface *g, int verbose) {
+    if (verbose) {
+        double t1 = g->GetVertexOrderingTime();
+        double t2 = g->GetVertexColoringTime();
+        std::cout << "Order and color time = " << t1+t2 << "=" << t1 << "+" << t2 << std::endl;
+        std::cout << "Number of colors: " << g->GetVertexColorCount() << std::endl;
+    }
+}
+
+void print_output(BipartiteGraphBicoloringInterface *g, int verbose) {
+    if (verbose) {
+        double t1 = g->GetVertexOrderingTime();
+        double t2 = g->GetVertexColoringTime();
+        std::cout << "Order and color time = " << t1+t2 << "=" << t1 << "+" << t2 << std::endl;
+        std::cout << "Number of colors: " << g->GetVertexColorCount() << std::endl;
+    }
+}
+
+void print_output(BipartiteGraphPartialColoringInterface *g, int verbose) {
     if (verbose) {
         double t1 = g->GetVertexOrderingTime();
         double t2 = g->GetVertexColoringTime();
@@ -42,8 +62,26 @@ extern "C" int build_coloring(void** ref, int* len, const char* _filename, const
         *ref = (void*) g;
     }
     else {
-        std::cerr << "ColPack: Invalid coloring method selected\n";
-        return 0;
+       if (PARTIAL_COLORING.count(_method)) {
+            if(verbose) std::cout << "Partial Distance Two Bipartite Graph Coloring\n";
+            BipartiteGraphPartialColoringInterface *g = new BipartiteGraphPartialColoringInterface(0, filename.c_str(), "AUTO_DETECTED");
+            g->PartialDistanceTwoColoring(order, method);
+            print_output(g, verbose);
+            *ref = (void*) g;
+        }
+        else {
+            if (BICOLORING.count(_method)) {
+                if(verbose) std::cout << "Bipartite Bipartite Graph Coloring\n";
+                BipartiteGraphBicoloringInterface *g = new BipartiteGraphBicoloringInterface(0, filename.c_str(), "AUTO_DETECTED");
+                g->Bicoloring(order, method);
+                print_output(g, verbose);
+                *ref = (void*) g;
+            }
+            else {
+                std::cerr << "ColPack: Invalid coloring method selected\n";
+                return 0;
+            }
+        }
     }
     return 1;
 }

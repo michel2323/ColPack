@@ -87,6 +87,7 @@ Configuration:
 
   Use OpenMP:                       ${openmp}
   Build examples:                   ${examples}
+  Build binary ColPack:             ${colpack}
 
   cx
   top_srcdir                        ${top_srcdir}

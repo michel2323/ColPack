@@ -58,6 +58,16 @@ AC_ARG_ENABLE([openmp],
      esac],[openmp=true])
      AM_CONDITIONAL([ENABLE_OPENMP], [test x$openmp = xtrue])
 
+AC_MSG_CHECKING(Build binary ColPack)
+AC_ARG_ENABLE([colpack],
+     [AS_HELP_STRING([--build-colpack],[Build Colpack])],
+     [case "${enableval}" in
+       yes) colpack=true ;;
+       no)  colpack=false ;;
+       *) AC_MSG_ERROR([bad value ${enableval} for --build-colpack]) ;;
+     esac],[colpack=false])
+     AM_CONDITIONAL([BIN_COLPACK], [test x$colpack = xtrue])
+
 AC_OUTPUT
 
 # echo configuration

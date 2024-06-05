@@ -24,9 +24,12 @@ endif
 LDADD = libColPack.la
 AM_DEFAULT_SOURCE_EXT = .cpp
 
+if BIN_COLPACK
 if ENABLE_OPENMP
 bin_PROGRAMS = ColPack
 endif
+endif
+
 lib_LTLIBRARIES = libColPack.la
 libColPack_la_LDFLAGS = -no-undefined
 pkginclude_HEADERS = \
@@ -126,9 +129,11 @@ endif
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCOrdering.cpp
 
 
+if BIN_COLPACK
 if ENABLE_OPENMP
 ColPack_SOURCES = \
 			../../../Examples/ColPackAll/Main.cpp
+endif
 endif
 
 

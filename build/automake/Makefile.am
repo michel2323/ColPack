@@ -25,12 +25,13 @@ LDADD = libColPack.la
 AM_DEFAULT_SOURCE_EXT = .cpp
 
 if ENABLE_OPENMP
-noinst_PROGRAMS = ColPack
+bin_PROGRAMS = ColPack
 endif
 lib_LTLIBRARIES = libColPack.la
 libColPack_la_LDFLAGS = -no-undefined
 pkginclude_HEADERS = \
 			../../../src/Utilities/CoutLock.h \
+			../../../src/Utilities/cinterface.h \
 			../../../src/Utilities/command_line_parameter_processor.h  \
 			../../../src/Utilities/File.h \
 			../../../src/Utilities/DisjointSets.h \
@@ -128,9 +129,10 @@ endif
 if ENABLE_OPENMP
 ColPack_SOURCES = \
 			../../../Examples/ColPackAll/Main.cpp
+endif
 
 
-
+if EXAMPLES
 examplesdir = ${prefix}/examples
 basic_examplesdir = ${examplesdir}/Basic
 basic_examples_PROGRAMS = \

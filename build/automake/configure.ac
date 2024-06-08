@@ -65,7 +65,7 @@ AC_ARG_ENABLE([colpack],
        yes) colpack=true ;;
        no)  colpack=false ;;
        *) AC_MSG_ERROR([bad value ${enableval} for --build-colpack]) ;;
-     esac],[colpack=false])
+     esac],[colpack=true])
      AM_CONDITIONAL([BIN_COLPACK], [test x$colpack = xtrue])
 
 AC_OUTPUT
@@ -89,7 +89,6 @@ Configuration:
   Build examples:                   ${examples}
   Build binary ColPack:             ${colpack}
 
-  cx
   top_srcdir                        ${top_srcdir}
 -----------------------------------------------------------------------------   
 "

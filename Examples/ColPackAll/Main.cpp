@@ -1,12 +1,12 @@
 #include "ColPackHeaders.h"
 #include <cstring>
 #include <unordered_set>
+
 using namespace ColPack;
 void usage();
 void general_coloring(int argc, char* argv[]);
 void partial_coloring(int argc, char* argv[]);
 void bicoloring(int argc, char* argv[]);
-
 
 const unordered_set<string> GENERAL_COLORING({
         "DISTANCE_ONE", 
@@ -15,11 +15,13 @@ const unordered_set<string> GENERAL_COLORING({
         "STAR", 
         "RESTRICTED_STAR", 
         "DISTANCE_TWO"});
+
 const unordered_set<string> BICOLORING({
         "IMPLICIT_COVERING__STAR_BICOLORING",
         "EXPLICIT_COVERING__STAR_BICOLORING",
         "EXPLICIT_COVERING__MODIFIED_STAR_BICOLORING",
         "IMPLICIT_COVERING__GREEDY_STAR_BICOLORING"});
+
 const unordered_set<string> PARTIAL_COLORING({
         "COLUMN_PARTIAL_DISTANCE_TWO",
         "ROW_PARTIAL_DISTANCE_TWO"});
@@ -44,7 +46,6 @@ int main(int argc, char* argv[]) {
     }
     return 0;
 }
-
 
 
 void general_coloring(int argc, char* argv[]){
@@ -162,8 +163,6 @@ void partial_coloring(int argc, char* argv[]){
     return;
 }
  
-
-
 void bicoloring(int argc, char* argv[]){
     vector<string> fnames;
     vector<string> methds;
@@ -223,7 +222,6 @@ void bicoloring(int argc, char* argv[]){
 }
  
 
-
 void usage(){
     fprintf(stderr, "\n"
             "NAME\n"
@@ -260,5 +258,3 @@ void usage(){
             "\n"
            ); 
 }
-
-

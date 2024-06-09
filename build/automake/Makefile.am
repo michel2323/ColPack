@@ -1,7 +1,7 @@
 # Makefile.am - an input file to automake that specifies a projects build requirements: what needs to be built, and where it goes when installed.
 
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
-COLPACK_COMMON_FLAGS = $(EXTRA_FLAGS) -O3
+COLPACK_COMMON_FLAGS = $(EXTRA_FLAGS) -O3 -fPIC
 COLPACK_ROOT_DIR = ../../..
 
 AM_CPPFLAGS = $(COLPACK_COMMON_FLAGS) \

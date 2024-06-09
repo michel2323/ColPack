@@ -20,16 +20,9 @@ if ENABLE_OPENMP
 AM_CXXFLAGS += -fopenmp
 endif
 
-LDADD = libColPack.la
 AM_DEFAULT_SOURCE_EXT = .cpp
 
-if EXAMPLES
-if ENABLE_OPENMP
-bin_PROGRAMS = ColPack
-endif
-endif
-
-lib_LTLIBRARIES = libColPack.la
+lib_LIBRARIES = libcolpack.a
 
 pkginclude_HEADERS = \
 			../../../src/Utilities/CoutLock.h \
@@ -78,7 +71,7 @@ endif
 #			../../../src/PartialD2SMPGC/PD2SMPGCOrdering.h \
 #			../../../src/PartialD2SMPGC/PD2SMPGCColoring.h
 
-libColPack_la_SOURCES = \
+libcolpack_a_SOURCES = \
 			../../../src/Utilities/CoutLock.cpp \
 			../../../src/Utilities/command_line_parameter_processor.cpp \
 			../../../src/Utilities/File.cpp\
@@ -99,7 +92,7 @@ libColPack_la_SOURCES = \
 			../../../src/GeneralGraphColoring/GraphColoring.cpp
 
 if ENABLE_OPENMP
-libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
+libcolpack_a_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/SMPGC/SMPGCColoringD1.cpp \
 			../../../src/SMPGC/SMPGCColoringD2.cpp \
 			../../../src/SMPGC/SMPGCColoringHybrid.cpp \
@@ -121,48 +114,49 @@ libColPack_la_SOURCES += ../../../src/SMPGC/SMPGCColoring.cpp \
 			../../../src/Recovery/HessianRecovery.cpp
 endif
 
-#libColPack_la_SOURCES += ../../../src/PartialD2SMPGC/PD2SMPGCColoring.cpp \
+#libcolpack_a_SOURCES += ../../../src/PartialD2SMPGC/PD2SMPGCColoring.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCColoringDev.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGC.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCOrdering.cpp
 
 if EXAMPLES
 if ENABLE_OPENMP
-ColPack_SOURCES = \
-			../../../Examples/ColPackAll/Main.cpp
+bin_PROGRAMS = ColPack
+ColPack_SOURCES = ../../../Examples/ColPackAll/Main.cpp
+ColPack_LDADD = libcolpack.a
 endif
 
-examplesdir = ${prefix}/examples
-basic_examplesdir = ${examplesdir}/Basic
-basic_examples_PROGRAMS = \
-			../../../Examples/SampleDrivers/Basic/color_bipartite_graph_using_BipartiteGraphBicoloringInterface \
-			../../../Examples/SampleDrivers/Basic/color_bipartite_graph_using_BipartiteGraphPartialColoringInterface \
-			../../../Examples/SampleDrivers/Basic/color_graph_using_GraphColoringInterface \
-			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Hessian \
-			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Jacobian
+# examplesdir = ${prefix}/examples
+# basic_examplesdir = ${examplesdir}/Basic
+# basic_examples_PROGRAMS = \
+# 			../../../Examples/SampleDrivers/Basic/color_bipartite_graph_using_BipartiteGraphBicoloringInterface \
+# 			../../../Examples/SampleDrivers/Basic/color_bipartite_graph_using_BipartiteGraphPartialColoringInterface \
+# 			../../../Examples/SampleDrivers/Basic/color_graph_using_GraphColoringInterface \
+# 			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Hessian \
+# 			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Jacobian
 
-TESTS = ${basic_examples_PROGRAMS}
+# TESTS = ${basic_examples_PROGRAMS}
 
-ADIC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADIC
-ADIC_examples_PROGRAMS = \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADIC/01_Column_compression_and_recovery_for_Jacobian_return_ADIC_Format
+# ADIC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADIC
+# ADIC_examples_PROGRAMS = \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADIC/01_Column_compression_and_recovery_for_Jacobian_return_ADIC_Format
 
-ADOLC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADOL-C
-ADOLC_examples_PROGRAMS = \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/01_Column_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/02_Column_compression_and_recovery_for_Jacobian_return_Coordinate_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/03_Column_compression_and_recovery_for_Jacobian_return_Sparse_Solvers_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/04_Row_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/05_Compression_and_direct_recovery_for_Hessian_return_Row_Compressed_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/06_Compression_and_direct_recovery_for_Hessian_return_Coordinate_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/07_Compression_and_direct_recovery_for_Hessian_return_Sparse_Solvers_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/08_Compression_and_indirect_recovery_for_Hessian_return_Row_Compressed_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/09_Bidirectional_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/10_Column_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format__unmanaged_usermem \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/11_Compression_and_direct_recovery_for_Hessian_return_Row_Compressed_Format__unmanaged_usermem \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/12_Bidirectional_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format__unmanaged_usermem
+# ADOLC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADOL-C
+# ADOLC_examples_PROGRAMS = \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/01_Column_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/02_Column_compression_and_recovery_for_Jacobian_return_Coordinate_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/03_Column_compression_and_recovery_for_Jacobian_return_Sparse_Solvers_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/04_Row_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/05_Compression_and_direct_recovery_for_Hessian_return_Row_Compressed_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/06_Compression_and_direct_recovery_for_Hessian_return_Coordinate_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/07_Compression_and_direct_recovery_for_Hessian_return_Sparse_Solvers_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/08_Compression_and_indirect_recovery_for_Hessian_return_Row_Compressed_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/09_Bidirectional_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/10_Column_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format__unmanaged_usermem \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/11_Compression_and_direct_recovery_for_Hessian_return_Row_Compressed_Format__unmanaged_usermem \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADOL-C/12_Bidirectional_compression_and_recovery_for_Jacobian_return_Row_Compressed_Format__unmanaged_usermem
 
-CSR_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/CSR
-CSR_examples_PROGRAMS = \
-			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/CSR_input/01_Column_compression_and_recovery_for_Jacobian_CSR_input_return_Row_Compressed_Format
+# CSR_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/CSR
+# CSR_examples_PROGRAMS = \
+# 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/CSR_input/01_Column_compression_and_recovery_for_Jacobian_CSR_input_return_Row_Compressed_Format
 endif

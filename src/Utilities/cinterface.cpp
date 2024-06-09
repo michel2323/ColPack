@@ -172,19 +172,29 @@ extern "C" int build_partial_coloring_from_csr(void** ref, int* len, unsigned in
 
 extern "C" void get_coloring(void* ref, int* coloring) {
     GraphColoringInterface* g = static_cast<GraphColoringInterface*>(ref);
-    g->GetVertexColors(coloring);
+    vector<int> _coloring;
+    g->GetVertexColors(_coloring);
+    memcpy(coloring, _coloring.data(), _coloring.size() * sizeof(int));
 }
 
 extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_coloring) {
     BipartiteGraphBicoloringInterface* g = static_cast<BipartiteGraphBicoloringInterface*>(ref);
-    g->GetLeftVertexColors(left_coloring);
-    g->GetRightVertexColors(right_coloring);
+    vector<int> _left_coloring;
+    vector<int> _right_coloring;
+    g->GetLeftVertexColors(_left_coloring);
+    g->GetRightVertexColors(_right_coloring);
+    memcpy(left_coloring, _left_coloring.data(), _left_coloring.size() * sizeof(int));
+    memcpy(right_coloring, _right_coloring.data(), _right_coloring.size() * sizeof(int));
 }
 
 extern "C" void get_partial_coloring(void* ref, int* left_coloring, int* right_coloring) {
     BipartiteGraphPartialColoringInterface* g = static_cast<BipartiteGraphPartialColoringInterface*>(ref);
-    g->GetLeftVertexColors(left_coloring);
-    g->GetRightVertexColors(right_coloring);
+    vector<int> _left_coloring;
+    vector<int> _right_coloring;
+    g->GetLeftVertexColors(_left_coloring);
+    g->GetRightVertexColors(_right_coloring);
+    memcpy(left_coloring, _left_coloring.data(), _left_coloring.size() * sizeof(int));
+    memcpy(right_coloring, _right_coloring.data(), _right_coloring.size() * sizeof(int));
 }
 
 extern "C" void free_coloring(void** ref) {

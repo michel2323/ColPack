@@ -29,6 +29,10 @@ extern "C" int build_all_coloring_from_file(void** ref, int* len, const char* _f
 extern "C" int build_coloring_from_csr(void** ref, int* len, unsigned int** csr, int rowcount, const char* _method, const char* _order, int verbose);
 extern "C" int build_bicoloring_from_csr(void** ref, int* len, unsigned int** csr, int rowcount, int colcount, const char* _method, const char* _order, int verbose);
 extern "C" int build_partial_coloring_from_csr(void** ref, int* len, unsigned int** csr, int rowcount, int colcount, const char* _method, const char* _order, int verbose);
-extern "C" void get_colors(void* ref, int* _coloring, char* _method, int verbose);
+extern "C" void get_coloring(void* ref, int* coloring);
+extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_coloring);
+extern "C" void get_partial_coloring(void* ref, int* left_coloring, int* right_coloring);
 extern "C" void free_coloring(void** ref);
+extern "C" void free_bicoloring(void** ref);
+extern "C" void free_partial_coloring(void** ref);
 #endif

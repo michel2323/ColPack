@@ -170,56 +170,52 @@ extern "C" int build_partial_coloring_from_csr(void** ref, int* len, unsigned in
     return 1;
 }
 
-extern "C" void get_colors(void* ref, int* _coloring, const char* _method, int verbose) {
-    vector<int> coloring;
-    std::string method(_method);
+extern "C" void get_coloring(void* ref, int* coloring) {
+    GraphColoringInterface* g = static_cast<GraphColoringInterface*>(ref);
+    g->GetVertexColors(coloring);
+}
 
-    if (GENERAL_COLORING.count(method)) {
-        GraphColoringInterface* g = static_cast<GraphColoringInterface*>(ref);
-        print_output(g, verbose);
-        g->GetVertexColors(coloring);
-    }
-    else if (BICOLORING.count(method)) {
-        BipartiteGraphBicoloringInterface* g = static_cast<BipartiteGraphBicoloringInterface*>(ref);
-        print_output(g, verbose);
-        g->GetVertexColors(coloring);
-    }
-    else if (PARTIAL_COLORING.count(method)) {
-        BipartiteGraphPartialColoringInterface* g = static_cast<BipartiteGraphPartialColoringInterface*>(ref);
-        print_output(g, verbose);
-        g->GetVertexColors(coloring);
-    }
-    else {
-        std::cerr << "ColPack: Invalid coloring method specified\n";
-        return;
-    }
+extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_coloring) {
+    BipartiteGraphBicoloringInterface* g = static_cast<BipartiteGraphBicoloringInterface*>(ref);
+    g->GetLeftVertexColors(left_coloring);
+    g->GetRightVertexColors(right_coloring);
+}
 
-    memcpy(_coloring, coloring.data(), coloring.size() * sizeof(int));
+extern "C" void get_partial_coloring(void* ref, int* left_coloring, int* right_coloring) {
+    BipartiteGraphPartialColoringInterface* g = static_cast<BipartiteGraphPartialColoringInterface*>(ref);
+    g->GetLeftVertexColors(left_coloring);
+    g->GetRightVertexColors(right_coloring);
 }
 
 extern "C" void free_coloring(void** ref) {
     if (*ref != nullptr) {
-        GraphColoringInterface *g = dynamic_cast<GraphColoringInterface*>(*ref);
+        GraphColoringInterface *g = (GraphColoringInterface*) *ref;
         if (g != nullptr) {
             delete g;
             *ref = nullptr;
             return;
         }
+    }
+}
 
-        BipartiteGraphBicoloringInterface *bg = dynamic_cast<BipartiteGraphBicoloringInterface*>(*ref);
+extern "C" void free_bicoloring(void** ref) {
+    if (*ref != nullptr) {
+        BipartiteGraphBicoloringInterface *bg = (BipartiteGraphBicoloringInterface*) *ref;
         if (bg != nullptr) {
             delete bg;
             *ref = nullptr;
             return;
         }
+    }
+}
 
-        BipartiteGraphPartialColoringInterface *pg = dynamic_cast<BipartiteGraphPartialColoringInterface*>(*ref);
+extern "C" void free_partial_coloring(void** ref) {
+    if (*ref != nullptr) {
+        BipartiteGraphPartialColoringInterface *pg = (BipartiteGraphPartialColoringInterface*) *ref;
         if (pg != nullptr) {
             delete pg;
             *ref = nullptr;
             return;
         }
-
-        std::cerr << "Unknown interface type for free_coloring\n";
     }
 }

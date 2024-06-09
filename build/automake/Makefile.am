@@ -4,7 +4,7 @@ ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
 COLPACK_COMMON_FLAGS = $(EXTRA_FLAGS) -O3
 COLPACK_ROOT_DIR = ../../..
 
-AM_CPPFLAGS =  $(COLPACK_COMMON_FLAGS) \
+AM_CPPFLAGS = $(COLPACK_COMMON_FLAGS) \
 		-I../../../inc \
 		-I../../../src/Utilities \
 		-I../../../src/BipartiteGraphPartialColoring \

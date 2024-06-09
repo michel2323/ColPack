@@ -1,9 +1,8 @@
 # Makefile.am - an input file to automake that specifies a projects build requirements: what needs to be built, and where it goes when installed.
 
 ACLOCAL_AMFLAGS = ${ACLOCAL_FLAGS} -I m4
-COLPACK_COMMON_FLAGS = $(EXTRA_FLAGS)  -O3
+COLPACK_COMMON_FLAGS = $(EXTRA_FLAGS) -O3
 COLPACK_ROOT_DIR = ../../..
-#${top_srcdir}/../..
 
 AM_CPPFLAGS =  $(COLPACK_COMMON_FLAGS) \
 		-I../../../inc \
@@ -24,14 +23,14 @@ endif
 LDADD = libColPack.la
 AM_DEFAULT_SOURCE_EXT = .cpp
 
-if BIN_COLPACK
+if EXAMPLES
 if ENABLE_OPENMP
 bin_PROGRAMS = ColPack
 endif
 endif
 
 lib_LTLIBRARIES = libColPack.la
-libColPack_la_LDFLAGS = -no-undefined
+
 pkginclude_HEADERS = \
 			../../../src/Utilities/CoutLock.h \
 			../../../src/Utilities/cinterface.h \
@@ -78,7 +77,6 @@ endif
 #pkginclude_HEADERS +=   ../../../src/PartialD2SMPGC/PD2SMPGC.h \
 #			../../../src/PartialD2SMPGC/PD2SMPGCOrdering.h \
 #			../../../src/PartialD2SMPGC/PD2SMPGCColoring.h
-
 
 libColPack_la_SOURCES = \
 			../../../src/Utilities/CoutLock.cpp \
@@ -128,16 +126,12 @@ endif
 #			 ../../../src/PartialD2SMPGC/PD2SMPGC.cpp \
 #			 ../../../src/PartialD2SMPGC/PD2SMPGCOrdering.cpp
 
-
-if BIN_COLPACK
+if EXAMPLES
 if ENABLE_OPENMP
 ColPack_SOURCES = \
 			../../../Examples/ColPackAll/Main.cpp
 endif
-endif
 
-
-if EXAMPLES
 examplesdir = ${prefix}/examples
 basic_examplesdir = ${examplesdir}/Basic
 basic_examples_PROGRAMS = \
@@ -148,9 +142,7 @@ basic_examples_PROGRAMS = \
 			../../../Examples/SampleDrivers/Basic/Generate_seed_matrix_for_Jacobian
 
 TESTS = ${basic_examples_PROGRAMS}
-endif
 
-if EXAMPLES
 ADIC_examplesdir = ${examplesdir}/Matrix_Compression_and_Recovery/ADIC
 ADIC_examples_PROGRAMS = \
 			../../../Examples/SampleDrivers/Matrix_Compression_and_Recovery/ADIC/01_Column_compression_and_recovery_for_Jacobian_return_ADIC_Format

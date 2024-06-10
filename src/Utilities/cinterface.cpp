@@ -267,35 +267,29 @@ extern "C" void get_partial_coloring(void* ref, int* left_coloring, int* right_c
     memcpy(right_coloring, _right_coloring.data(), _right_coloring.size() * sizeof(int));
 }
 
-extern "C" void free_coloring(void** ref) {
-    if (*ref != nullptr) {
-        GraphColoringInterface *g = (GraphColoringInterface*) *ref;
+extern "C" void free_coloring(void* ref) {
+    if (ref != nullptr) {
+        GraphColoringInterface *g = (GraphColoringInterface*) ref;
         if (g != nullptr) {
             delete g;
-            *ref = nullptr;
-            return;
         }
     }
 }
 
-extern "C" void free_bicoloring(void** ref) {
-    if (*ref != nullptr) {
-        BipartiteGraphBicoloringInterface *bg = (BipartiteGraphBicoloringInterface*) *ref;
+extern "C" void free_bicoloring(void* ref) {
+    if (ref != nullptr) {
+        BipartiteGraphBicoloringInterface *bg = (BipartiteGraphBicoloringInterface*) ref;
         if (bg != nullptr) {
             delete bg;
-            *ref = nullptr;
-            return;
         }
     }
 }
 
-extern "C" void free_partial_coloring(void** ref) {
-    if (*ref != nullptr) {
-        BipartiteGraphPartialColoringInterface *pg = (BipartiteGraphPartialColoringInterface*) *ref;
+extern "C" void free_partial_coloring(void* ref) {
+    if (ref != nullptr) {
+        BipartiteGraphPartialColoringInterface *pg = (BipartiteGraphPartialColoringInterface*) ref;
         if (pg != nullptr) {
             delete pg;
-            *ref = nullptr;
-            return;
         }
     }
 }

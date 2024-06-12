@@ -40,6 +40,10 @@ extern "C" void get_coloring(void* ref, int* coloring);
 extern "C" void get_partial_coloring(void* ref, int* coloring);
 extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_coloring);
 
+extern "C" int ncolors_coloring(void* ref);
+extern "C" int ncolors_partial_coloring(void* ref);
+extern "C" int ncolors_bicoloring(void* ref);
+
 extern "C" void free_coloring(void* ref);
 extern "C" void free_partial_coloring(void* ref);
 extern "C" void free_bicoloring(void* ref);

@@ -305,6 +305,21 @@ extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_colorin
     memcpy(right_coloring, _right_coloring.data(), _right_coloring.size() * sizeof(int));
 }
 
+extern "C" int ncolors_coloring(void* ref) {
+    GraphColoringInterface *g = (GraphColoringInterface*) ref;
+    return g->GetVertexColorCount()
+}
+
+extern "C" int ncolors_partial_coloring(void* ref) {
+    BipartiteGraphPartialColoringInterface *pg = (BipartiteGraphPartialColoringInterface*) ref;
+    return pg->GetVertexColorCount()
+}
+
+extern "C" int ncolors_bicoloring(void* ref) {
+    BipartiteGraphBicoloringInterface *bg = (BipartiteGraphBicoloringInterface*) ref;
+    return bg->GetVertexColorCount()
+}
+
 extern "C" void free_coloring(void* ref) {
     if (ref != nullptr) {
         GraphColoringInterface *g = (GraphColoringInterface*) ref;

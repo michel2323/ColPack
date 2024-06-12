@@ -165,7 +165,7 @@ namespace ColPack
 		  cout<<m_s_InputFile<<" not Found!"<<endl;
 		  exit(1);
 		}
-		else cout<<"Found file "<<m_s_InputFile<<endl;
+		// else cout<<"Found file "<<m_s_InputFile<<endl;
 
 		if (mm_read_banner(f, &matcode) != 0)
 		{
@@ -179,9 +179,9 @@ namespace ColPack
 		else b_symmetric = false;
 
 		//Check and make sure that the input file is supported
-		char * result = mm_typecode_to_str(matcode);
-		printf("Graph of Market Market type: [%s]\n", result);
-		free(result);
+		// char * result = mm_typecode_to_str(matcode);
+		// printf("Graph of Market Market type: [%s]\n", result);
+		// free(result);
 		if( !( 
                             mm_is_coordinate(matcode) && 
                             (mm_is_symmetric(matcode) || mm_is_general(matcode) ) && 

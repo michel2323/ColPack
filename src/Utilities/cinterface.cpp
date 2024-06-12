@@ -307,17 +307,17 @@ extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_colorin
 
 extern "C" int ncolors_coloring(void* ref) {
     GraphColoringInterface *g = (GraphColoringInterface*) ref;
-    return g->GetVertexColorCount()
+    return g->GetVertexColorCount();
 }
 
 extern "C" int ncolors_partial_coloring(void* ref) {
     BipartiteGraphPartialColoringInterface *pg = (BipartiteGraphPartialColoringInterface*) ref;
-    return pg->GetVertexColorCount()
+    return pg->GetVertexColorCount();
 }
 
 extern "C" int ncolors_bicoloring(void* ref) {
     BipartiteGraphBicoloringInterface *bg = (BipartiteGraphBicoloringInterface*) ref;
-    return bg->GetVertexColorCount()
+    return bg->GetVertexColorCount();
 }
 
 extern "C" void free_coloring(void* ref) {

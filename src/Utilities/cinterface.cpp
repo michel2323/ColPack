@@ -102,7 +102,7 @@ extern "C" int build_partial_coloring_from_file(void** ref, int* len, const char
         g->PartialDistanceTwoColoring(order, method);
         *ref = static_cast<void*>(g);
         if (method == "ROW_PARTIAL_DISTANCE_TWO") {
-            g->GetLeftVertexColors(coloring);;
+            g->GetLeftVertexColors(coloring);
         }
         else {
             g->GetRightVertexColors(coloring);

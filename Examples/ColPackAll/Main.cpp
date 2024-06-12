@@ -94,7 +94,7 @@ void general_coloring(int argc, char* argv[]){
                     double t2 = g->GetVertexColoringTime();
                     printf("order+color time = %f = %f+%f\n",t1+t2, t1,t2);
                     printf("number of colors: ");
-                    g->PrintVertexColors()
+                    g->PrintVertexColors();
                     // printf("%d\n",g->GetVertexColorCount());
                 }
                 else {
@@ -215,7 +215,7 @@ void bicoloring(int argc, char* argv[]){
                     double t2 = g->GetVertexColoringTime();
                     printf("order+color time = %f = %f+%f\n",t1+t2, t1,t2);
                     printf("number of colors: ");
-                    g->PrintVertexBicolors()
+                    g->PrintVertexBicolors();
                     // printf("%d\n",g->GetVertexColorCount());
                 }
                 else {

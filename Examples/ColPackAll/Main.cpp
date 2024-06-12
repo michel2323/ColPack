@@ -93,7 +93,7 @@ void general_coloring(int argc, char* argv[]){
                     double t1 = g->GetVertexOrderingTime();
                     double t2 = g->GetVertexColoringTime();
                     printf("order+color time = %f = %f+%f\n",t1+t2, t1,t2);
-                    printf("number of colors: ");
+                    printf("number of colors: %d\n", g->GetVertexColorCount());
                     g->PrintVertexColors();
                     // printf("%d\n",g->GetVertexColorCount());
                 }
@@ -151,7 +151,7 @@ void partial_coloring(int argc, char* argv[]){
                     double t1 = g->GetVertexOrderingTime();
                     double t2 = g->GetVertexColoringTime();
                     printf("order+color time = %f = %f+%f\n",t1+t2, t1,t2);
-                    printf("number of colors: ");
+                    printf("number of colors: %d\n", g->GetVertexColorCount());
                     if (m == "ROW_PARTIAL_DISTANCE_TWO") {
                         g->PrintRowPartialColors();
                     } else {
@@ -214,7 +214,7 @@ void bicoloring(int argc, char* argv[]){
                     double t1 = g->GetVertexOrderingTime();
                     double t2 = g->GetVertexColoringTime();
                     printf("order+color time = %f = %f+%f\n",t1+t2, t1,t2);
-                    printf("number of colors: ");
+                    printf("number of colors: %d\n", g->GetVertexColorCount());
                     g->PrintVertexBicolors();
                     // printf("%d\n",g->GetVertexColorCount());
                 }

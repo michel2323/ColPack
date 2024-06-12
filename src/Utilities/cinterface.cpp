@@ -46,23 +46,26 @@ void print_output(BipartiteGraphBicoloringInterface* g, int verbose) {
 }
 
 extern "C" int build_coloring_from_file(void** ref, int* len, const char* filename, const char* method, const char* order, int verbose) {
+    string _filename = string(filename);
+    string _method = string(method);
+    string _order = string(order);
     vector<int> coloring;
 
-    std::ifstream file(filename.c_str());
+    std::ifstream file(_filename);
     if (!file.good()) {
-        std::cerr << "ColPack: Unable to open file " << filename.c_str() << std::endl;
+        std::cerr << "ColPack: Unable to open file " << _filename << std::endl;
         return 0;
     }
     file.close();
 
     if (verbose) {
-        std::cout << "Filename: " << filename.c_str() << "\norder: " << order.c_str() << "\nmethod: " << method.c_str() << "\n";
+        std::cout << "Filename: " << _filename << "\norder: " << _order << "\nmethod: " << _method << "\n";
     }
 
-    if (GENERAL_COLORING.count(method.c_str())) {
+    if (GENERAL_COLORING.count(_method)) {
         if (verbose) std::cout << "General Graph Coloring\n";
-        GraphColoringInterface* g = new GraphColoringInterface(SRC_FILE, filename.c_str(), "AUTO_DETECTED");
-        g->Coloring(order.c_str(), method.c_str());
+        GraphColoringInterface* g = new GraphColoringInterface(SRC_FILE, _filename, "AUTO_DETECTED");
+        g->Coloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetVertexColors(coloring);
         *len = static_cast<int>(coloring.size());
@@ -77,23 +80,26 @@ extern "C" int build_coloring_from_file(void** ref, int* len, const char* filena
 }
 
 extern "C" int build_partial_coloring_from_file(void** ref, int* len, const char* filename, const char* method, const char* order, int verbose) {
+    string _filename = string(filename);
+    string _method = string(method);
+    string _order = string(order);
     vector<int> coloring;
 
-    std::ifstream file(filename.c_str());
+    std::ifstream file(_filename);
     if (!file.good()) {
-        std::cerr << "ColPack: Unable to open file " << filename.c_str() << std::endl;
+        std::cerr << "ColPack: Unable to open file " << _filename << std::endl;
         return 0;
     }
     file.close();
 
     if (verbose) {
-        std::cout << "Filename: " << filename.c_str() << "\norder: " << order.c_str() << "\nmethod: " << method.c_str() << "\n";
+        std::cout << "Filename: " << _filename << "\norder: " << _order << "\nmethod: " << _method << "\n";
     }
 
-    if (PARTIAL_COLORING.count(method.c_str())) {
+    if (PARTIAL_COLORING.count(_method)) {
         if (verbose) std::cout << "Partial Distance Two Bipartite Graph Coloring\n";
-        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_FILE, filename.c_str(), "AUTO_DETECTED");
-        g->PartialDistanceTwoColoring(order.c_str(), method.c_str());
+        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_FILE, _filename, "AUTO_DETECTED");
+        g->PartialDistanceTwoColoring(_order, _method);
         *ref = static_cast<void*>(g);
         if (method == "ROW_PARTIAL_DISTANCE_TWO") {
             g->GetLeftVertexColors(coloring);
@@ -113,24 +119,27 @@ extern "C" int build_partial_coloring_from_file(void** ref, int* len, const char
 }
 
 extern "C" int build_bicoloring_from_file(void** ref, int* len1, int* len2, const char* filename, const char* method, const char* order, int verbose) {
+    string _filename = string(filename);
+    string _method = string(method);
+    string _order = string(order);
     vector<int> left_coloring;
     vector<int> right_coloring;
 
-    std::ifstream file(filename.c_str());
+    std::ifstream file(_filename);
     if (!file.good()) {
-        std::cerr << "ColPack: Unable to open file " << filename.c_str() << std::endl;
+        std::cerr << "ColPack: Unable to open file " << _filename << std::endl;
         return 0;
     }
     file.close();
 
     if (verbose) {
-        std::cout << "Filename: " << filename.c_str() << "\norder: " << order.c_str() << "\nmethod: " << method.c_str() << "\n";
+        std::cout << "Filename: " << _filename << "\norder: " << _order << "\nmethod: " << _method << "\n";
     }
 
-    if (BICOLORING.count(method.c_str())) {
+    if (BICOLORING.count(_method)) {
         if (verbose) std::cout << "Bipartite Bipartite Graph Coloring\n";
-        BipartiteGraphBicoloringInterface* g = new BipartiteGraphBicoloringInterface(SRC_FILE, filename.c_str(), "AUTO_DETECTED");
-        g->Bicoloring(order.c_str(), method.c_str());
+        BipartiteGraphBicoloringInterface* g = new BipartiteGraphBicoloringInterface(SRC_FILE, _filename, "AUTO_DETECTED");
+        g->Bicoloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetLeftVertexColors(left_coloring);
         *len1 = static_cast<int>(left_coloring.size());
@@ -152,11 +161,13 @@ extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** ad
         return 0;
     }
 
+    string _method = string(method);
+    string _order = string(order);
     vector<int> coloring;
 
-    if (GENERAL_COLORING.count(method.c_str())) {
+    if (GENERAL_COLORING.count(_method)) {
         GraphColoringInterface* g = new GraphColoringInterface(SRC_MEM_ADOLC, adolc, rowcount);
-        g->Coloring(order.c_str(), method.c_str());
+        g->Coloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetVertexColors(coloring);
         *len = static_cast<int>(coloring.size());
@@ -177,13 +188,15 @@ extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned 
         return 0;
     }
 
+    string _method = string(method);
+    string _order = string(order);
     vector<int> coloring;
 
-    if (PARTIAL_COLORING.count(method.c_str())) {
+    if (PARTIAL_COLORING.count(_method)) {
         BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_ADOLC, adolc, rowcount, colcount);
-        g->PartialDistanceTwoColoring(order.c_str(), method.c_str());
+        g->PartialDistanceTwoColoring(_order, _method);
         *ref = static_cast<void*>(g);
-        if (method.c_str() == "ROW_PARTIAL_DISTANCE_TWO") {
+        if (_method == "ROW_PARTIAL_DISTANCE_TWO") {
             g->GetLeftVertexColors(coloring);
         }
         else {
@@ -206,12 +219,14 @@ extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, uns
         return 0;
     }
 
+    string _method = string(method);
+    string _order = string(order);
     vector<int> left_coloring;
     vector<int> right_coloring;
 
-    if (BICOLORING.count(method.c_str())) {
+    if (BICOLORING.count(_method)) {
         BipartiteGraphBicoloringInterface* g = new BipartiteGraphBicoloringInterface(SRC_MEM_ADOLC, adolc, rowcount, colcount);
-        g->Bicoloring(order.c_str(), method.c_str());
+        g->Bicoloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetLeftVertexColors(left_coloring);
         *len1 = static_cast<int>(left_coloring.size());
@@ -233,13 +248,15 @@ extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rows, 
         return 0;
     }
 
+    string _method = string(method);
+    string _order = string(order);
     vector<int> coloring;
 
     if (PARTIAL_COLORING.count(method)) {
         BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_CSR, rows, rowcount, colcount, cols);
-        g->PartialDistanceTwoColoring(order.c_str(), method.c_str());
+        g->PartialDistanceTwoColoring(_order, _method);
         *ref = static_cast<void*>(g);
-        if (method.c_str() == "ROW_PARTIAL_DISTANCE_TWO") {
+        if (_method == "ROW_PARTIAL_DISTANCE_TWO") {
             g->GetLeftVertexColors(coloring);
         }
         else {

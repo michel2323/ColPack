@@ -242,8 +242,8 @@ extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, uns
     return 1;
 }
 
-extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rows, int* cols, int rowcount, int colcount, const char* method, const char* order, int verbose) {
-    if (ref == nullptr || len == nullptr || rows == nullptr || cols == nullptr || method == nullptr || order == nullptr) {
+extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose) {
+    if (ref == nullptr || len == nullptr || rowptr == nullptr || colval == nullptr || method == nullptr || order == nullptr) {
         std::cerr << "ColPack: Invalid input parameters\n";
         return 0;
     }
@@ -253,7 +253,38 @@ extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rows, 
     vector<int> coloring;
 
     if (PARTIAL_COLORING.count(method)) {
-        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_CSR, rows, rowcount, colcount, cols);
+        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_CSR, rowptr, nrows, ncols, colval);
+        g->PartialDistanceTwoColoring(_order, _method);
+        *ref = static_cast<void*>(g);
+        if (_method == "ROW_PARTIAL_DISTANCE_TWO") {
+            g->GetLeftVertexColors(coloring);
+        }
+        else {
+            g->GetRightVertexColors(coloring);
+        }
+        *len = static_cast<int>(coloring.size());
+        print_output(g, verbose);
+    }
+    else {
+        std::cerr << "ColPack: Invalid coloring method selected\n";
+        return 0;
+    }
+
+    return 1;
+}
+
+extern "C" int build_partial_coloring_from_csc(void** ref, int* len, int* rowval, int* colptr, int nrows, int ncols, const char* method, const char* order, int verbose) {
+    if (ref == nullptr || len == nullptr || rowval == nullptr || colptr == nullptr || method == nullptr || order == nullptr) {
+        std::cerr << "ColPack: Invalid input parameters\n";
+        return 0;
+    }
+
+    string _method = string(method);
+    string _order = string(order);
+    vector<int> coloring;
+
+    if (PARTIAL_COLORING.count(method)) {
+        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_CSC, rowval, nrows, ncols, colptr);
         g->PartialDistanceTwoColoring(_order, _method);
         *ref = static_cast<void*>(g);
         if (_method == "ROW_PARTIAL_DISTANCE_TWO") {

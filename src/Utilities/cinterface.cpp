@@ -155,7 +155,7 @@ extern "C" int build_bicoloring_from_file(void** ref, int* len1, int* len2, cons
     return 1;
 }
 
-extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** adolc, int rowcount, const char* method, const char* order, int verbose) {
+extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** adolc, int nrows, const char* method, const char* order, int verbose) {
     if (ref == nullptr || len == nullptr || adolc == nullptr || method == nullptr || order == nullptr) {
         std::cerr << "ColPack: Invalid input parameters\n";
         return 0;
@@ -166,7 +166,7 @@ extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** ad
     vector<int> coloring;
 
     if (GENERAL_COLORING.count(_method)) {
-        GraphColoringInterface* g = new GraphColoringInterface(SRC_MEM_ADOLC, adolc, rowcount);
+        GraphColoringInterface* g = new GraphColoringInterface(SRC_MEM_ADOLC, adolc, nrows);
         g->Coloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetVertexColors(coloring);
@@ -182,7 +182,7 @@ extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** ad
 }
 
 
-extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** adolc, int rowcount, int colcount, const char* method, const char* order, int verbose) {
+extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** adolc, int nrows, int ncols, const char* method, const char* order, int verbose) {
     if (ref == nullptr || len == nullptr || adolc == nullptr || method == nullptr || order == nullptr) {
         std::cerr << "ColPack: Invalid input parameters\n";
         return 0;
@@ -193,7 +193,7 @@ extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned 
     vector<int> coloring;
 
     if (PARTIAL_COLORING.count(_method)) {
-        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_ADOLC, adolc, rowcount, colcount);
+        BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_MEM_ADOLC, adolc, nrows, ncols);
         g->PartialDistanceTwoColoring(_order, _method);
         *ref = static_cast<void*>(g);
         if (_method == "ROW_PARTIAL_DISTANCE_TWO") {
@@ -213,7 +213,7 @@ extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned 
     return 1;
 }
 
-extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** adolc, int rowcount, int colcount, const char* method, const char* order, int verbose) {
+extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** adolc, int nrows, int ncols, const char* method, const char* order, int verbose) {
     if (ref == nullptr || len1 == nullptr || len2 == nullptr || adolc == nullptr || method == nullptr || order == nullptr) {
         std::cerr << "ColPack: Invalid input parameters\n";
         return 0;
@@ -225,7 +225,7 @@ extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, uns
     vector<int> right_coloring;
 
     if (BICOLORING.count(_method)) {
-        BipartiteGraphBicoloringInterface* g = new BipartiteGraphBicoloringInterface(SRC_MEM_ADOLC, adolc, rowcount, colcount);
+        BipartiteGraphBicoloringInterface* g = new BipartiteGraphBicoloringInterface(SRC_MEM_ADOLC, adolc, nrows, ncols);
         g->Bicoloring(_order, _method);
         *ref = static_cast<void*>(g);
         g->GetLeftVertexColors(left_coloring);

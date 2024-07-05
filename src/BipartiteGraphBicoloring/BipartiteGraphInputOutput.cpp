@@ -917,9 +917,9 @@ namespace ColPack
 	    std::map<int, std::vector<int>> colList;
 
 	    m_vi_LeftVertices.clear();
-	    m_vi_LeftVertices.reserve(i_RowCount);
+	    m_vi_LeftVertices.reserve(i_RowCount + 1);
 	    m_vi_RightVertices.clear();
-	    m_vi_RightVertices.reserve(i_ColumnCount);
+	    m_vi_RightVertices.reserve(i_ColumnCount + 1);
 	    m_vi_Edges.clear();
 	    m_vi_Edges.reserve(2 * ip_RowIndex[i_RowCount]);
 
@@ -934,6 +934,7 @@ namespace ColPack
 	    }
 
 	    m_vi_RightVertices.emplace_back(static_cast<int>(m_vi_Edges.size()));
+
 	    for (int i = 0; i < i_ColumnCount; ++i) {
 	        auto curr = colList.find(i);
 	        if (curr != colList.end()) {
@@ -951,11 +952,11 @@ namespace ColPack
 	    std::map<int, std::vector<int>> rowList;
 
 	    m_vi_LeftVertices.clear();
-	    m_vi_LeftVertices.reserve(i_RowCount);
+	    m_vi_LeftVertices.reserve(i_RowCount + 1);
 	    m_vi_RightVertices.clear();
-	    m_vi_RightVertices.reserve(i_ColumnCount);
+	    m_vi_RightVertices.reserve(i_ColumnCount + 1);
 	    m_vi_Edges.clear();
-	    m_vi_Edges.reserve(2 * ip_RowIndex[i_RowCount]);
+	    m_vi_Edges.reserve(2 * ip_ColumnIndex[i_ColumnCount]);
 
 	    m_vi_RightVertices.emplace_back(0);
 
@@ -968,6 +969,7 @@ namespace ColPack
 	    }
 
 	    m_vi_LeftVertices.emplace_back(static_cast<int>(m_vi_Edges.size()));
+
 	    for (int i = 0; i < i_RowCount; ++i) {
 	        auto curr = rowList.find(i);
 	        if (curr != rowList.end()) {

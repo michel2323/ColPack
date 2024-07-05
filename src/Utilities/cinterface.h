@@ -29,9 +29,9 @@ extern "C" int build_bicoloring_from_file(void** ref, int* len1, int* len2, cons
 
 // Builds coloring, bicoloring or partial coloring from ADOLC compressed row format. csr is an array of int* row pointers.
 // Each row has the number of elements in csr[0] and with csr[i] having the column value of element i.
-extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int rowcount, const char* method, const char* order, int verbose);
-extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int rowcount, int colcount, const char* method, const char* order, int verbose);
-extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** csr, int rowcount, int colcount, const char* method, const char* order, int verbose);
+extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int nrows, const char* method, const char* order, int verbose);
+extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
 
 // Build partial coloring from CSR format.
 extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose);

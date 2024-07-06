@@ -33,11 +33,13 @@ extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** cs
 extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
 extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
 
-// Build partial coloring from CSR format.
+// Build partial coloring and bicoloring from CSR format.
 extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_csr(void** ref, int* len1, int* len2, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose);
 
-// Build partial coloring from CSC format.
+// Build partial coloring and bicoloring from CSC format.
 extern "C" int build_partial_coloring_from_csc(void** ref, int* len, int* rowval, int* colptr, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_csc(void** ref, int* len1, int* len2, int* rowval, int* colptr, int nrows, int ncols, const char* method, const char* order, int verbose);
 
 extern "C" void get_coloring(void* ref, int* coloring);
 extern "C" void get_partial_coloring(void* ref, int* coloring);

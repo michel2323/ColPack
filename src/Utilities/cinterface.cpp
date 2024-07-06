@@ -101,7 +101,7 @@ extern "C" int build_partial_coloring_from_file(void** ref, int* len, const char
         BipartiteGraphPartialColoringInterface* g = new BipartiteGraphPartialColoringInterface(SRC_FILE, _filename.c_str(), "AUTO_DETECTED");
         g->PartialDistanceTwoColoring(_order.c_str(), _method.c_str());
         *ref = static_cast<void*>(g);
-        if (method == "ROW_PARTIAL_DISTANCE_TWO") {
+        if (_method == "ROW_PARTIAL_DISTANCE_TWO") {
             g->GetLeftVertexColors(coloring);
         }
         else {

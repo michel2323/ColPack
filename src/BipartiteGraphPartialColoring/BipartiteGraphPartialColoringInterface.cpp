@@ -130,6 +130,14 @@ namespace ColPack
 
 		  BuildBPGraphFromCSRFormat(ip_RowIndex, i_RowCount, i_ColumnCount, ip_ColumnIndex);
 		}
+		else if (i_type == SRC_MEM_CSC) {
+		  int* ip_RowIndex = va_arg(ap,int*);
+		  int i_RowCount = va_arg(ap,int);
+		  int i_ColumnCount = va_arg(ap,int);
+		  int* ip_ColumnIndex = va_arg(ap,int*);
+
+		  BuildBPGraphFromCSCFormat(ip_RowIndex, i_RowCount, i_ColumnCount, ip_ColumnIndex);
+		}
 		else if (i_type == SRC_FILE) {
 		  // get string s_InputFile, string s_fileFormat
 		  string s_InputFile ( va_arg(ap,char *) );

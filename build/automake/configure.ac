@@ -77,8 +77,5 @@ Configuration:
 
   Use OpenMP:                       ${openmp}
   Build examples:                   ${examples}
-
-  cx
-  top_srcdir                        ${top_srcdir}
 -----------------------------------------------------------------------------   
 "

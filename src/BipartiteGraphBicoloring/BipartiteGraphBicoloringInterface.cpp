@@ -125,11 +125,26 @@ namespace ColPack
 		  BuildBPGraphFromRowCompressedFormat(uip2_JacobianSparsityPattern, i_RowCount, i_ColumnCount);
 		}
 		else if (i_type == SRC_MEM_ADIC) {
-		  // !!! add interface function that takes input from ADIC
-		  cerr<<"ERR: GraphColoringInterface(): s_inputSource \"ADIC\" is not supported yet"<<endl;
+		  std::list<std::set<int> > *  lsi_SparsityPattern = va_arg(ap,std::list<std::set<int> > *);
+		  int i_ColumnCount = va_arg(ap,int);
 
-		  va_end(ap); /*cleanup*/
-		  return;
+		  BuildBPGraphFromADICFormat(lsi_SparsityPattern, i_ColumnCount);
+		}
+		else if (i_type == SRC_MEM_SSF || i_type == SRC_MEM_CSR) {
+		  int* ip_RowIndex = va_arg(ap,int*);
+		  int i_RowCount = va_arg(ap,int);
+		  int i_ColumnCount = va_arg(ap,int);
+		  int* ip_ColumnIndex = va_arg(ap,int*);
+
+		  BuildBPGraphFromCSRFormat(ip_RowIndex, i_RowCount, i_ColumnCount, ip_ColumnIndex);
+		}
+		else if (i_type == SRC_MEM_CSC) {
+		  int* ip_RowIndex = va_arg(ap,int*);
+		  int i_RowCount = va_arg(ap,int);
+		  int i_ColumnCount = va_arg(ap,int);
+		  int* ip_ColumnIndex = va_arg(ap,int*);
+
+		  BuildBPGraphFromCSCFormat(ip_RowIndex, i_RowCount, i_ColumnCount, ip_ColumnIndex);
 		}
 		else if (i_type == SRC_FILE) {
 		  // get string s_InputFile, string s_fileFormat

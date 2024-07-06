@@ -22,11 +22,34 @@
 
 using namespace ColPack;
 
-// Builds coloring from file
-extern "C" int build_coloring(void** ref, int* len, const char* _filename, const char* _method, const char* _order, int verbose);
-// Builds coloring from ADOLC compressed row format. csr is an array of int* row pointers.
+// Builds coloring, bicoloring or partial coloring from file
+extern "C" int build_coloring_from_file(void** ref, int* len, const char* filename, const char* method, const char* order, int verbose);
+extern "C" int build_partial_coloring_from_file(void** ref, int* len, const char* filename, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_file(void** ref, int* len1, int* len2, const char* filename, const char* method, const char* order, int verbose);
+
+// Builds coloring, bicoloring or partial coloring from ADOLC compressed row format. csr is an array of int* row pointers.
 // Each row has the number of elements in csr[0] and with csr[i] having the column value of element i.
-extern "C" int build_coloring_from_csr(void** ref, int* len, unsigned int** csr, int rowcount, const char* _method, const char* _order, int verbose);
-extern "C" void get_colors(void* ref, int* _coloring, char* _method, int verbose);
-extern "C" void free_coloring(void** ref);
+extern "C" int build_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int nrows, const char* method, const char* order, int verbose);
+extern "C" int build_partial_coloring_from_adolc(void** ref, int* len, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_adolc(void** ref, int* len1, int* len2, unsigned int** csr, int nrows, int ncols, const char* method, const char* order, int verbose);
+
+// Build partial coloring and bicoloring from CSR format.
+extern "C" int build_partial_coloring_from_csr(void** ref, int* len, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_csr(void** ref, int* len1, int* len2, int* rowptr, int* colval, int nrows, int ncols, const char* method, const char* order, int verbose);
+
+// Build partial coloring and bicoloring from CSC format.
+extern "C" int build_partial_coloring_from_csc(void** ref, int* len, int* rowval, int* colptr, int nrows, int ncols, const char* method, const char* order, int verbose);
+extern "C" int build_bicoloring_from_csc(void** ref, int* len1, int* len2, int* rowval, int* colptr, int nrows, int ncols, const char* method, const char* order, int verbose);
+
+extern "C" void get_coloring(void* ref, int* coloring);
+extern "C" void get_partial_coloring(void* ref, int* coloring);
+extern "C" void get_bicoloring(void* ref, int* left_coloring, int* right_coloring);
+
+extern "C" int ncolors_coloring(void* ref);
+extern "C" int ncolors_partial_coloring(void* ref);
+extern "C" int ncolors_bicoloring(void* ref);
+
+extern "C" void free_coloring(void* ref);
+extern "C" void free_partial_coloring(void* ref);
+extern "C" void free_bicoloring(void* ref);
 #endif
